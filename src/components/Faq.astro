@@ -1,0 +1,21 @@
+---
+import Section from "./Section.astro";
+import Icon from "./Icon.astro";
+import { faq } from "../data/clinic";
+---
+<Section id="faq" class="faq" rec="U-R014">
+  <div class="container faq__grid">
+    <div class="faq__head">
+      <h2 class="section-title">Питання</h2>
+      <p class="faq__lead">Короткі відповіді на те, про що питають перед першим візитом.</p>
+    </div>
+    <div class="faq__list">
+      {faq.map((f, i) => (
+        <details class="faq__item" open={i === 0}>
+          <summary class="faq__q"><span>{f.q}</span><span class="faq__mark"><Icon name="plus" size={22} /></span></summary>
+          <p class="faq__a">{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</Section>

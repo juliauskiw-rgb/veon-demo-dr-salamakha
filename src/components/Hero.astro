@@ -1,0 +1,62 @@
+---
+import Section from "./Section.astro";
+import Icon from "./Icon.astro";
+import Pic from "./Pic.astro";
+import { phones, addresses, hours, owner } from "../data/clinic";
+
+interface Props { h1: string; }
+const { h1 } = Astro.props;
+// Keep the dash at the end of a line, never at the start (text stays exactly the concept's H1).
+const [lead = h1, tail = ""] = h1.split(" — ");
+const words = lead.split(" ");
+const last = words.pop();
+---
+<Section id="hero" class="hero" rec="U-R001,U-R013,P-R001,G-R002,M-R003" label="Перший екран">
+  <div class="container hero__grid">
+    <h1 class="hero__title" data-rec="SEO-R004">{words.join(" ")} <span class="nowrap">{last} —</span> {tail}</h1>
+
+    <div class="hero__desk">
+      <p class="hero__label">Запис на прийом — за телефоном</p>
+      <a class="hero__phone tabular" href={phones[0].href}><span class="hero__phone-num">{phones[0].display}</span></a>
+      <div class="hero__actions">
+        <a class="btn btn--primary btn--large hero__call" href={phones[0].href} data-rec="P-R005">
+          <Icon name="phone" size={20} /><span>Зателефонувати</span>
+        </a>
+        <p class="hero__alt">або <a class="link tabular" href={phones[1].href}>{phones[1].display}</a></p>
+      </div>
+    </div>
+
+    <div class="hero__aside">
+      <figure class="hero__owner">
+        <Pic name={owner.img} widths={[480, 720, 960]} ratio={0.8} alt={owner.alt}
+          sizes="(max-width: 63.99rem) 112px, min(32vw, 440px)" eager class="hero__portrait" />
+        <figcaption class="hero__owner-text">
+          <span class="hero__owner-name">{owner.name}</span>
+          <span class="hero__owner-role">Лікар-власник — ортопед, хірург-імплантолог, 25 років досвіду.</span>
+        </figcaption>
+      </figure>
+
+      <div class="hero__info">
+        <ul class="hero__places">
+          {addresses.map((a) => (
+            <li>
+              <span class="hero__street">{a.street}</span>
+              {a.district && <span class="hero__district">{a.district}</span>}
+            </li>
+          ))}
+        </ul>
+        <p class="hero__hours">
+          {hours.map((h) => <span><span class="hero__days">{h.days}</span> <span class="tabular">{h.time}</span></span>)}
+        </p>
+      </div>
+    </div>
+  </div>
+
+</Section>
+<figure class="hero__band container" data-hero-photo>
+  <Pic name="team-wide" widths={[768, 1280, 1920, 2560]} ratio={2.4}
+    narrow={{ name: "team-narrow", widths: [480, 800, 1200], ratio: 1.5, media: "(max-width: 47.99rem)" }}
+    sizes="(max-width: 47.99rem) 100vw, min(100vw - 120px, 1320px)"
+    alt="Команда клініки Dr. Salamakha: лікарі й асистенти в однаковій формі сидять поруч і складають руками сердечка"
+    class="hero__pic" />
+</figure>

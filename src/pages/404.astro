@@ -1,0 +1,16 @@
+---
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import { phones } from "../data/clinic";
+---
+<Base lang="uk" title="Сторінку не знайдено — клініка Доктора Саламахи" description="Такої сторінки немає. Поверніться на головну або зателефонуйте в клініку." rec="SEO-R007">
+  <section class="notfound container" id="notfound">
+    <a class="site-header__logo" href="/"><img src="/images/logo-360.webp" width="160" height="52" alt="Dr. Salamakha dental clinic" /></a>
+    <h1 class="notfound__title">Такої сторінки немає</h1>
+    <p class="notfound__text">Можливо, адреса змінилася. Усе головне — на першій сторінці, а записатися можна за телефоном.</p>
+    <div class="notfound__actions">
+      <a class="btn btn--primary btn--large" href={phones[0].href}><Icon name="phone" size={20} /><span>{phones[0].display}</span></a>
+      <a class="link" href="/">На головну</a>
+    </div>
+  </section>
+</Base>

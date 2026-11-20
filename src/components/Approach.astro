@@ -1,0 +1,24 @@
+---
+import Section from "./Section.astro";
+import { approach, phones } from "../data/clinic";
+---
+<Section id="approach" class="approach" rec="U-R007">
+  <div class="container">
+    <div class="approach__head">
+      <h2 class="section-title">Як ми лікуємо</h2>
+      <p class="approach__lead">Чотири правила, з яких складається лікування без зайвого стресу.</p>
+    </div>
+    <ol class="approach__list" role="list">
+      {approach.map((a) => (
+        <li class="approach__item">
+          <h3 class="approach__title">{a.title}</h3>
+          <p class="approach__text">{a.text}</p>
+        </li>
+      ))}
+    </ol>
+    <p class="phone-sign">
+      <span class="phone-sign__label">Залишились питання до лікаря?</span>
+      <a class="phone-sign__num tabular" href={phones[0].href}>{phones[0].display}</a>
+    </p>
+  </div>
+</Section>

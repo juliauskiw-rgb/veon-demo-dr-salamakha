@@ -1,0 +1,38 @@
+---
+import "../styles/tokens.css";
+import "../styles/global.css";
+import "../styles/site.css";
+
+interface Props { lang: string; title: string; description: string; canonical?: string; rec?: string; bodyRec?: string; }
+const { lang, title, description, canonical, rec, bodyRec } = Astro.props;
+---
+<!doctype html>
+<html lang={lang} data-rec={rec}>
+  <head>
+    <meta charset="utf-8" />
+    <script is:inline>document.documentElement.classList.add("js")</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="uk_UA" />
+    <meta name="theme-color" content="#FFFFFF" />
+    <meta name="robots" content="noindex" />
+    <link rel="preload" href="/fonts/geologica-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <slot name="head" />
+    <style is:global>html, body { overflow-x: clip; }</style>
+  </head>
+  <body id="top" data-rec={bodyRec}>
+    <a class="skip-link" href="#main">{lang.startsWith("uk") ? "До змісту" : lang.startsWith("ru") ? "К содержанию" : "Skip to content"}</a>
+    <slot name="header" />
+    <main id="main"><slot /></main>
+    <slot name="footer" />
+    <script src="../scripts/reveal.ts"></script>
+    <script src="../scripts/site.ts"></script>
+  </body>
+</html>

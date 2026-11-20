@@ -1,0 +1,23 @@
+---
+// Responsive client photo: AVIF + WebP with srcset, explicit width/height (P-R002, P-R007).
+// Files are prepared in public/images as <name>-<width>.(avif|webp).
+interface Props {
+  name: string; widths: number[]; ratio: number; alt: string; sizes: string;
+  eager?: boolean; class?: string; imgClass?: string;
+  narrow?: { name: string; widths: number[]; ratio: number; media: string };
+}
+const { name, widths, ratio, alt, sizes, eager = false, class: cls, imgClass, narrow } = Astro.props;
+const set = (n: string, ws: number[], ext: string) => ws.map((w) => `/images/${n}-${w}.${ext} ${w}w`).join(", ");
+const mid = widths[Math.min(1, widths.length - 1)];
+const w = mid;
+const h = Math.round(mid / ratio);
+const rec = "P-R002,P-R007";
+---
+<picture class={cls} data-rec={rec}>
+  {narrow && <source media={narrow.media} type="image/avif" srcset={set(narrow.name, narrow.widths, "avif")} sizes={sizes} width={narrow.widths[1]} height={Math.round(narrow.widths[1] / narrow.ratio)} />}
+  {narrow && <source media={narrow.media} type="image/webp" srcset={set(narrow.name, narrow.widths, "webp")} sizes={sizes} width={narrow.widths[1]} height={Math.round(narrow.widths[1] / narrow.ratio)} />}
+  <source type="image/avif" srcset={set(name, widths, "avif")} sizes={sizes} />
+  <source type="image/webp" srcset={set(name, widths, "webp")} sizes={sizes} />
+  <img class={imgClass} src={`/images/${name}-${mid}.webp`} alt={alt} width={w} height={h}
+    loading={eager ? "eager" : "lazy"} decoding="async" />
+</picture>

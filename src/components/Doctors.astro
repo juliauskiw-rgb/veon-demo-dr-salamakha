@@ -1,0 +1,45 @@
+---
+import Section from "./Section.astro";
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import Pic from "./Pic.astro";
+import { owner, doctors, phones, FUTURE } from "../data/clinic";
+---
+<Section id="doctor" class="doctor" rec="U-R006,G-R004">
+  <div class="container">
+    <div class="doctor__lead">
+      <div class="doctor__portrait" data-reveal>
+        <Pic name={owner.img} widths={[480, 720, 960]} ratio={0.8} alt={owner.alt}
+          sizes="(max-width: 47.99rem) 100vw, (max-width: 75rem) 45vw, 540px" />
+      </div>
+      <div class="doctor__text">
+        <h2 class="section-title doctor__title">Лікар-власник і команда</h2>
+        <p class="doctor__intro">Клініка носить ім’я свого лікаря-власника. Поруч із ним працюють ще п’ятеро лікарів.</p>
+        <h3 class="doctor__name">{owner.name}</h3>
+        <p class="doctor__role">{owner.role}</p>
+        <p class="doctor__years"><span class="doctor__years-num tabular">25</span> <span>років досвіду</span></p>
+        <p class="doctor__claim">За даними клініки — понад 3700 пацієнтів і понад 11 років роботи.</p>
+        <a class="btn btn--primary doctor__call" href={phones[0].href}>
+          <Icon name="phone" size={18} /><span>Записатися на прийом</span>
+        </a>
+      </div>
+    </div>
+
+    <ul class="team" role="list" aria-label="Лікарі клініки">
+      {doctors.map((d, i) => (
+        <li class="team__item" data-reveal style={`--reveal-delay:${i * 60}ms`}>
+          <Pic name={d.img} widths={[320, 480, 640]} ratio={0.8} alt={d.alt}
+            sizes="(max-width: 47.99rem) 62vw, (max-width: 75rem) 30vw, 250px" class="team__pic" />
+          <h3 class="team__name">{d.name}</h3>
+          <p class="team__role">{d.role}</p>
+          <p class="team__years">{d.years}</p>
+        </li>
+      ))}
+    </ul>
+
+    <div class="doctor__more">
+      <FutureLink note={FUTURE} class="text-future text-future--dark">Уся команда</FutureLink>
+      <FutureLink note={FUTURE} class="text-future text-future--dark">Наші роботи</FutureLink>
+    </div>
+  </div>
+</Section>

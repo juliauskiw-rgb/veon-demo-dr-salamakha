@@ -1,0 +1,8 @@
+---
+import Icon from "./Icon.astro";
+import { phones } from "../data/clinic";
+---
+<div class="sticky-call" data-sticky-call data-rec="U-R002,G-R002,M-R003">
+  <a class="btn btn--primary sticky-call__btn" href={phones[0].href}><Icon name="phone" size={18} /><span>Зателефонувати</span></a>
+  <a class="btn btn--ghost sticky-call__btn" href="#contacts"><span>Як дістатися</span></a>
+</div>

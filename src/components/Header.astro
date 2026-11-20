@@ -1,0 +1,57 @@
+---
+import Icon from "./Icon.astro";
+import { phones, socials } from "../data/clinic";
+
+const nav = [
+  { href: "#services", label: "Послуги і ціни" },
+  { href: "#doctor", label: "Лікарі" },
+  { href: "#approach", label: "Як ми лікуємо" },
+  { href: "#faq", label: "Питання" },
+  { href: "#contacts", label: "Контакти" },
+];
+---
+<header class="site-header" id="header" data-rec="U-R002,G-R002,S-R005">
+  <div class="container site-header__bar">
+    <a class="site-header__logo" href="#top" aria-label="Dr. Salamakha dental clinic — на початок сторінки">
+      <img src="/images/logo-360.webp" srcset="/images/logo-180.webp 180w, /images/logo-360.webp 360w" sizes="132px"
+        width="132" height="43" alt="Dr. Salamakha dental clinic" />
+    </a>
+
+    <nav class="site-nav" aria-label="Розділи сторінки">
+      <ul>
+        {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <a class="btn btn--ghost btn--compact site-header__phone tabular" href={phones[0].href} aria-label={`Зателефонувати ${phones[0].display}`}>
+        <Icon name="phone" size={18} /><span>{phones[0].display}</span>
+      </a>
+      <a class="icon-link site-header__social" href={socials.instagram} rel="noopener" target="_blank" aria-label="Instagram клініки"><Icon name="instagram" /></a>
+      <a class="icon-link site-header__social" href={socials.facebook} rel="noopener" target="_blank" aria-label="Facebook клініки"><Icon name="facebook" /></a>
+
+      <a class="icon-call" href={phones[0].href} aria-label={`Зателефонувати ${phones[0].display}`}><Icon name="phone" size={22} /></a>
+
+      <details class="menu" data-menu>
+        <summary class="menu__toggle" aria-label="Меню">
+          <span class="menu__icon menu__icon--open"><Icon name="menu" size={24} /></span>
+          <span class="menu__icon menu__icon--close"><Icon name="close" size={24} /></span>
+        </summary>
+        <div class="menu__sheet">
+          <nav aria-label="Меню розділів">
+            <ul class="menu__list">
+              {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+            </ul>
+          </nav>
+          <div class="menu__contacts">
+            {phones.map((p) => <a class="menu__phone tabular" href={p.href}>{p.display}</a>)}
+            <div class="menu__socials">
+              <a class="icon-link" href={socials.instagram} rel="noopener" target="_blank" aria-label="Instagram клініки"><Icon name="instagram" size={22} /></a>
+              <a class="icon-link" href={socials.facebook} rel="noopener" target="_blank" aria-label="Facebook клініки"><Icon name="facebook" size={22} /></a>
+            </div>
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+</header>

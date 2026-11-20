@@ -1,0 +1,41 @@
+---
+import Section from "./Section.astro";
+import Icon from "./Icon.astro";
+import { addresses, phones, hours, email, socials } from "../data/clinic";
+---
+<Section id="contacts" class="contacts" rec="U-R004,S-R005">
+  <div class="container">
+    <div class="contacts__head">
+      <h2 class="section-title">Дві адреси у Львові</h2>
+      <div class="contacts__call">
+        <div class="contacts__phones">
+          {phones.map((p) => <a class="contacts__phone tabular" href={p.href}>{p.display}</a>)}
+        </div>
+        <a class="btn btn--primary btn--large" href={phones[0].href}>
+          <Icon name="phone" size={20} /><span>Зателефонувати</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="contacts__places">
+      {addresses.map((a) => (
+        <article class="place">
+          <h3 class="place__street">{a.street}</h3>
+          <p class="place__district">{a.district ? `${a.district}, ${a.city}` : a.city}</p>
+          <dl class="place__hours">
+            {hours.map((h) => <div><dt>{h.days}</dt><dd class="tabular">{h.time}</dd></div>)}
+          </dl>
+          <a class="place__map link" href={a.map} rel="noopener" target="_blank">
+            <Icon name="pin" size={20} /><span>Маршрут на карті</span>
+          </a>
+        </article>
+      ))}
+    </div>
+
+    <ul class="contacts__more" role="list">
+      <li><a class="link" href={socials.instagram} rel="noopener" target="_blank"><Icon name="instagram" /><span>Instagram</span></a></li>
+      <li><a class="link" href={socials.facebook} rel="noopener" target="_blank"><Icon name="facebook" /><span>Facebook</span></a></li>
+      <li><a class="link" href={`mailto:${email}`}><Icon name="mail" /><span>{email}</span></a></li>
+    </ul>
+  </div>
+</Section>

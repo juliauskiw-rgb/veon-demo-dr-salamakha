@@ -1,0 +1,46 @@
+---
+import Section from "./Section.astro";
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import { services, phones, FUTURE } from "../data/clinic";
+---
+<Section id="services" class="services" rec="U-R005,G-R004">
+  <div class="container services__grid">
+    <div class="services__aside">
+      <div class="services__sticky">
+        <h2 class="section-title">Послуги і ціни</h2>
+        <p class="services__lead">Ціни «від» — з прайсу клініки. Не знаєте, що саме потрібно? Почніть з консультації.</p>
+        <div class="services__consult">
+          <p class="services__consult-name">Консультація лікаря</p>
+          <p class="services__consult-price tabular">500 грн</p>
+        </div>
+        <a class="btn btn--primary services__call" href={phones[0].href}>
+          <Icon name="phone" size={18} /><span>Записатися</span>
+        </a>
+        <p class="services__note">Ціни уточнюйте за телефоном: точну вартість лікар визначає після діагностики.</p>
+        <FutureLink note={FUTURE} class="text-future">Повний прайс</FutureLink>
+      </div>
+    </div>
+
+    <ul class="price-list" role="list">
+      {services.map((s) => (
+        <li>
+          <div class="price-row">
+            <div class="price-row__main">
+              <h3 class="price-row__name">{s.name}</h3>
+              <p class="price-row__text">{s.text}</p>
+            </div>
+            <p class="price-row__prices">
+              {s.prices.length > 0
+                ? s.prices.map((p) => <span class="price-row__price"><span class="price-row__label">{p.label}</span> <span class="price-row__value tabular">{p.value}</span></span>)
+                : <span class="price-row__price price-row__price--call">вартість — за телефоном</span>}
+            </p>
+            <FutureLink note={FUTURE} class="price-row__more">
+              <span>Детальніше</span><span class="visually-hidden">: {s.name}</span><Icon name="arrow" size={18} />
+            </FutureLink>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</Section>

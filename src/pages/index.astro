@@ -1,0 +1,55 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Services from "../components/Services.astro";
+import Doctors from "../components/Doctors.astro";
+import Approach from "../components/Approach.astro";
+import Faq from "../components/Faq.astro";
+import Contacts from "../components/Contacts.astro";
+import Footer from "../components/Footer.astro";
+import StickyCall from "../components/StickyCall.astro";
+import { addresses, phones, email, socials, owner, faq } from "../data/clinic";
+
+// design/concept.md §8.6 (veon-concept h1, title, description).
+const h1 = "Стоматологія Доктора Саламахи у Львові — лікування без зайвого стресу";
+const title = "Стоматологія у Львові — клініка Доктора Саламахи";
+const description = "Стоматологія повного циклу у Львові на вул. В. Великого, 38 та Угорській, 12: імплантація, ортодонтія, дитяча стоматологія. Консультація лікаря — 500 грн.";
+
+const hoursSpec = [
+  { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "08:30", closes: "20:00" },
+  { "@type": "OpeningHoursSpecification", dayOfWeek: "Saturday", opens: "09:00", closes: "15:00" },
+];
+const sameAs = [socials.instagram, socials.facebook];
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    ...addresses.map((a, i) => ({
+      "@type": "Dentist",
+      "@id": `#location-${i + 1}`,
+      name: "Dr. Salamakha dental clinic",
+      address: { "@type": "PostalAddress", streetAddress: a.street, addressLocality: "Львів", addressCountry: "UA" },
+      telephone: phones.map((p) => p.display),
+      email,
+      openingHoursSpecification: hoursSpec,
+      sameAs,
+    })),
+    { "@type": "Physician", name: owner.name, medicalSpecialty: ["Dentistry"], description: `${owner.role}, ${owner.years}`, worksFor: { "@id": "#location-1" } },
+    { "@type": "FAQPage", mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) },
+  ],
+};
+---
+<Base lang="uk" title={title} description={description} rec="SEO-R001,SEO-R002,SEO-R003,SEO-R007" bodyRec="P-R003">
+  <script slot="head" type="application/ld+json" data-rec="SEO-R005" set:html={JSON.stringify(ld)} />
+  <Header slot="header" />
+  <Hero h1={h1} />
+  <Services />
+  <Doctors />
+  <Approach />
+  <Faq />
+  <Contacts />
+  <Fragment slot="footer">
+    <Footer />
+    <StickyCall />
+  </Fragment>
+</Base>

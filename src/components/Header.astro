@@ -1,6 +1,7 @@
 ---
 import Icon from "./Icon.astro";
 import { phones, socials } from "../data/clinic";
+const B = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + "/";
 
 const nav = [
   { href: "#services", label: "Послуги і ціни" },
@@ -13,7 +14,7 @@ const nav = [
 <header class="site-header" id="header" data-rec="U-R002,G-R002,S-R005">
   <div class="container site-header__bar">
     <a class="site-header__logo" href="#top" aria-label="Dr. Salamakha dental clinic — на початок сторінки">
-      <img src="/images/logo-360.webp" srcset="/images/logo-180.webp 180w, /images/logo-360.webp 360w" sizes="132px"
+      <img src={`${B}images/logo-360.webp`} srcset={`${B}images/logo-180.webp 180w, ${B}images/logo-360.webp 360w`} sizes="132px"
         width="132" height="43" alt="Dr. Salamakha dental clinic" />
     </a>
 
